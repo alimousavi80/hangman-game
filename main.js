@@ -1,14 +1,28 @@
-const randomWord = ["house", "car", "garden"];
+const randomWord = [
+    "house",
+    "garden",
+    "car",
+    "apple",
+    "kid",
+    "dog",
+    "orange",
+    "gray",
+    "red",
+];
 const selectRandom = randomWord[Math.floor(Math.random() * randomWord.length)];
 const display = document.querySelector(".p");
-let button = document.getElementsByClassName("button");
-const splitedWord = selectRandom.split("");
+const button = document.getElementsByClassName("button");
+const result = document.querySelector(".result");
+const image = document.querySelector(".image");
+const modalResult = document.querySelector(".modal-result");
+const modalButton = document.querySelector(".modal-button");
+const lettersContainer = document.querySelector(".container");
 
+const splitedWord = selectRandom.split("");
 let letter = "";
 let splitedUnderLines = [];
-setUnderScores();
 
-function setUnderScores() {
+const setUnderScores = () => {
     let underLines = [];
     if (letter == "") {
         for (let item of splitedWord) {
@@ -17,48 +31,62 @@ function setUnderScores() {
         splitedUnderLines = underLines.split("");
         display.innerHTML = splitedUnderLines;
     }
-}
+};
 
-function check(letter) {
+setUnderScores();
+
+const check = (letter) => {
     if (splitedWord.includes(letter)) {
         splitedUnderLines[splitedWord.indexOf(letter)] = letter;
         display.innerHTML = splitedUnderLines;
         let str = String(splitedUnderLines);
         let str2 = String(splitedWord);
         if (str2.includes(str)) {
-            win();
+            showResultModal("win");
         }
     } else {
         checkWrongs();
     }
-}
+};
+
+const buttonHandler = (event) => {
+    check(event.target.innerText);
+};
+
+let x = 0;
+const checkWrongs = () => {
+    x += 1;
+    let gg = (image.src = `./assets/hangman${x}.png`);
+    if (x == 6) {
+        showResultModal("lose");
+    }
+};
+
+const showResultModal = (check) => {
+    lettersContainer.classList.add("disable");
+    window.removeEventListener("keydown", keyhandler);
+    modalResult.style.display = "block";
+    if (check === "lose") {
+        result.innerText = `you lost result was ${selectRandom}`;
+        modalButton.innerText = "try again";
+    } else if (check === "win") {
+        image.src = "./assets/winner.png";
+        modalButton.innerText = "new game";
+        result.innerText = "congratulation";
+    }
+};
 
 for (let item of button) {
     item.addEventListener("click", buttonHandler);
 }
 
-function buttonHandler(event) {
-    check(event.target.innerText);
-}
-
-window.addEventListener("keydown", function (event) {
-    let keyLetter = event.key.toUpperCase();
+const keyhandler = (event) => {
+    let keyLetter = event.key.toLowerCase();
     check(keyLetter);
+};
+
+window.addEventListener("keydown", keyhandler);
+
+modalButton.addEventListener("click", () => {
+    location.reload();
 });
-
-let x = 0;
-function checkWrongs() {
-    x += 1;
-    let gg = (document.querySelector(".image").src =
-        `./assets/hangman${x}.png`);
-    if (x == 6) {
-        document.querySelector(".resault").innerText =
-            `u lost reasault was ${selectRandom}`;
-            
-
-    }
-}
-
-function win() {
-    document.querySelector(".image").src = "./assets/winner.png";
-}
