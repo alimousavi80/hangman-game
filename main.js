@@ -1,13 +1,14 @@
 const randomWord = [
-    "house",
-    "garden",
     "car",
-    "apple",
-    "kid",
-    "dog",
-    "orange",
-    "gray",
+    "house",
     "red",
+    "garden",
+    "orange",
+    "beauty",
+    "bullet",
+    "lunch",
+    "mouse",
+    "tiger",
 ];
 const selectRandom = randomWord[Math.floor(Math.random() * randomWord.length)];
 const display = document.querySelector(".p");
@@ -49,8 +50,8 @@ const check = (letter) => {
     }
 };
 
-const buttonHandler = (event) => {
-    check(event.target.innerText);
+const buttonHandler = (e) => {
+    check(e.target.innerText.toLowerCase());
 };
 
 let x = 0;
