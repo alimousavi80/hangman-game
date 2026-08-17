@@ -10,28 +10,14 @@ body {
 
 .container {
     height: 100dvh;
+    padding: 3rem;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    gap: 3rem;
 }
 
-.fix {
-    position: absolute;
-    top: 7%;
-}
-
-
-.row1 {
-    display: flex;
-    justify-content: center;
-}
-
-.row2 {
-    display: flex;
-    justify-content: center;
-}
-
-.row3{
+.row1 , .row2, .row3 {
     display: flex;
     justify-content: center;
 }
@@ -53,26 +39,24 @@ body {
     user-select: none;
 }
 
+.mobile-buttons {
+    display: none;
+}
+
 .button:hover {
     opacity: 0.8;
     scale: 0.9;
-}
-
-button:hover {
-    opacity: 0.8;
-    scale: 0.9;
-    transition: all 500ms ease;
 }
 
 .button:active{
     color: darkslategray;
 }
 
-
-
-.fix div.used {
-    opacity: 0.5;
-    background-color: #9e9e9e;
+.bottom-part {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5rem;
 }
 
 .display{
@@ -83,11 +67,6 @@ button:hover {
     font-size: 55px;
     font-weight: bold;
     color: white;
-}
-.image{
-    position: absolute;
-    bottom: -70%;
-    right: 39%;
 }
 
 .modal-result {
@@ -128,3 +107,33 @@ h2 {
     pointer-events: none;
 }
 
+/* code ********************************************/
+/* .active {
+    pointer-events: none;
+    opacity: 0.8;
+    scale: 0.9;
+} */
+
+
+@media (max-width : 900px) {
+
+.button{
+    width: 60px;
+    height: 60px;
+    margin: 5px;
+}
+}
+
+@media (max-width:710px) {
+    .buttons{
+display: none;
+}
+.mobile-buttons{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.container{
+    padding: 1rem;
+}
+}

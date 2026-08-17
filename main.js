@@ -80,8 +80,8 @@ for (let item of button) {
     item.addEventListener("click", buttonHandler);
 }
 
-const keyhandler = (event) => {
-    let keyLetter = event.key.toLowerCase();
+const keyhandler = (e) => {
+    let keyLetter = e.key.toLowerCase();
     check(keyLetter);
 };
 
