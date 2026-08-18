@@ -68,7 +68,7 @@ const showResultModal = (check) => {
     window.removeEventListener("keydown", keyhandler);
     modalResult.style.display = "block";
     if (check === "lose") {
-        result.innerText = `you lost result was ${selectRandom}`;
+        result.innerText = `result was ${selectRandom}`;
         modalButton.innerText = "try again";
     } else if (check === "win") {
         image.src = "./assets/winner.png";
@@ -89,5 +89,7 @@ const keyhandler = (e) => {
 window.addEventListener("keydown", keyhandler);
 
 modalButton.addEventListener("click", () => {
+    console.log("gg");
+
     location.reload();
 });
