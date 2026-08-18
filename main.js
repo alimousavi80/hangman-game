@@ -9,6 +9,8 @@ const randomWord = [
     "lunch",
     "mouse",
     "tiger",
+    "hill",
+    "hello",
 ];
 const selectRandom = randomWord[Math.floor(Math.random() * randomWord.length)];
 const display = document.querySelector(".p");
@@ -38,8 +40,14 @@ setUnderScores();
 
 const check = (letter) => {
     if (splitedWord.includes(letter)) {
-        splitedUnderLines[splitedWord.indexOf(letter)] = letter;
-        display.innerHTML = splitedUnderLines;
+        let counter = 0;
+        for (let item of splitedUnderLines) {
+            if (splitedWord[counter] === letter) {
+                splitedUnderLines[counter] = letter;
+                display.innerHTML = splitedUnderLines;
+            }
+            counter++;
+        }
         let str = String(splitedUnderLines);
         let str2 = String(splitedWord);
         if (str2.includes(str)) {
