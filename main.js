@@ -1,4 +1,4 @@
-const randomWord = [
+const Words = [
     "car",
     "house",
     "red",
@@ -11,19 +11,34 @@ const randomWord = [
     "tiger",
     "hill",
     "hello",
+    "blue",
+    "green",
+    "white",
+    "yellow",
+    "planet",
+    "table",
+    "cat",
+    "dog",
 ];
-const selectRandom = randomWord[Math.floor(Math.random() * randomWord.length)];
-const display = document.querySelector(".p");
+let selectRandom = "";
+const display = document.querySelector(".display");
 const button = document.getElementsByClassName("button");
 const result = document.querySelector(".result");
 const image = document.querySelector(".image");
 const modalResult = document.querySelector(".modal-result");
 const modalButton = document.querySelector(".modal-button");
 const lettersContainer = document.querySelector(".container");
+let splitedWord = "";
 
-const splitedWord = selectRandom.split("");
 let letter = "";
 let splitedUnderLines = [];
+
+const randomWordMaker = () => {
+    selectRandom = Words[Math.floor(Math.random() * Words.length)];
+    splitedWord = selectRandom.split("");
+};
+
+randomWordMaker();
 
 const setUnderScores = () => {
     let underLines = [];
@@ -62,11 +77,12 @@ const buttonHandler = (e) => {
     check(e.target.innerText.toLowerCase());
 };
 
-let x = 0;
+let checkWrongsCounter = 0;
+
 const checkWrongs = () => {
-    x += 1;
-    let gg = (image.src = `./assets/hangman${x}.png`);
-    if (x == 6) {
+    checkWrongsCounter += 1;
+    let gg = (image.src = `./assets/hangman${checkWrongsCounter}.png`);
+    if (checkWrongsCounter == 6) {
         showResultModal("lose");
     }
 };
@@ -74,6 +90,7 @@ const checkWrongs = () => {
 const showResultModal = (check) => {
     lettersContainer.classList.add("disable");
     window.removeEventListener("keydown", keyhandler);
+    window.addEventListener("keydown", enterKeyHandler);
     modalResult.style.display = "block";
     if (check === "lose") {
         result.innerText = `result was ${selectRandom}`;
@@ -94,10 +111,23 @@ const keyhandler = (e) => {
     check(keyLetter);
 };
 
+const enterKeyHandler = (e) => {
+    if (e.key === "Enter") {
+        reloadGame();
+    }
+};
+
+const reloadGame = () => {
+    randomWordMaker();
+    setUnderScores();
+    lettersContainer.classList.remove("disable");
+    window.addEventListener("keydown", keyhandler);
+    window.removeEventListener("keydown", enterKeyHandler);
+    modalResult.style.display = "none";
+    checkWrongsCounter = 0;
+    image.src = "./assets/hangman0.png";
+};
+
 window.addEventListener("keydown", keyhandler);
 
-modalButton.addEventListener("click", () => {
-    console.log("gg");
-
-    location.reload();
-});
+modalButton.addEventListener("click", reloadGame);
