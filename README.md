@@ -15,5 +15,3 @@
 
 [hangman](https://alimousavi80.github.io/hangman-game/)
 
-<img src="https://github-stats-extended.vercel.app/api/top-langs/?username=https://alimousavi80.github.io/hangman-game/" />
-
